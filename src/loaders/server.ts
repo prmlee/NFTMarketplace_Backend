@@ -1,6 +1,7 @@
+import bodyParser from "body-parser";
 import { Application } from "express";
 import { createExpressServer } from "routing-controllers";
-import { CarController } from "../controllers/car.controller";
+import { AuthController } from "../controllers/auth.controller";
 
 export const ExpressServerLoader = (): Application => {
   const app: Application = createExpressServer({
@@ -8,8 +9,10 @@ export const ExpressServerLoader = (): Application => {
     classTransformer: true,
     defaultErrorHandler: false,
     middlewares: [],
-    controllers: [CarController],
+    controllers: [AuthController],
   });
+
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.listen(process.env.PORT);
 
